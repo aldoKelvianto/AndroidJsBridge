@@ -1,5 +1,6 @@
 package com.aldoapps.jsbridge.example.jsinterface;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.webkit.JavascriptInterface;
@@ -20,10 +21,12 @@ public class JsInterfaceActivity extends BaseActivity {
     @BindView(R.id.webView)
     WebView webView;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("file:///android_asset/demo-js-interface.html");
         webView.addJavascriptInterface(new CallbackInterface() {
             @Override
