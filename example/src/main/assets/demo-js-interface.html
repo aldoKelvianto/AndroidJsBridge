@@ -1,0 +1,29 @@
+<html>
+<head>
+    <script type="text/javascript" async>
+
+    function sendMessage() {
+        // return value to Js Bridge Activity
+        var message = document.messageForm.message.value;
+        MyJsInterface.receiveMessageFromJs(message);
+    }
+
+    function showAndroidToast(toastMessage) {
+        MyJsInterface.showToast(toastMessage);
+    }
+
+
+    </script>
+    <title></title>
+</head>
+<body>
+
+<form name="messageForm" id="messageForm">
+    Message: <input type="text" name="message">
+    <button type="button" onclick="sendMessage()">Send</button>
+</form>
+
+<input type="button" value="toastHello" onclick="showAndroidToast('Hello Android!')"/>
+
+</body>
+</html>

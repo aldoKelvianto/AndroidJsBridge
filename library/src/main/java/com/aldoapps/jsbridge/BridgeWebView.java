@@ -25,13 +25,13 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
 
     private final String TAG = "BridgeWebView";
 
-    Map<String, CallBackFunction> responseCallbacks = new HashMap<String, CallBackFunction>();
+    Map<String, CallBackFunction> responseCallbacks = new HashMap<>();
 
-    Map<String, BridgeHandler> messageHandlers = new HashMap<String, BridgeHandler>();
+    Map<String, BridgeHandler> messageHandlers = new HashMap<>();
 
     BridgeHandler defaultHandler = new DefaultHandler();
 
-    private List<Message> startupMessage = new ArrayList<Message>();
+    private List<Message> startupMessage = new ArrayList<>();
 
     private long uniqueId = 0;
 
@@ -74,11 +74,7 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
-        this.setWebViewClient(generateBridgeWebViewClient());
-    }
-
-    protected BridgeWebViewClient generateBridgeWebViewClient() {
-        return new BridgeWebViewClient(this);
+        this.setWebViewClient(new BridgeWebViewClient(this));
     }
 
     void handlerReturnData(String url) {
@@ -88,7 +84,6 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
         if (f != null) {
             f.onCallBack(data);
             responseCallbacks.remove(functionName);
-            return;
         }
     }
 
@@ -146,7 +141,7 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
                 @Override
                 public void onCallBack(String data) {
                     // deserializeMessage
-                    List<Message> list = null;
+                    List<Message> list;
                     try {
                         list = Message.toArrayList(data);
                     } catch (Exception e) {
