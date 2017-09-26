@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".jsinterface.JsInterfaceActivity" />
         <activity android:name=".jsbridge.JsBridgeActivity" />
+        <activity android:name=".androidtojs.AndroidToJsActivity" />
     </application>
 
 </manifest>

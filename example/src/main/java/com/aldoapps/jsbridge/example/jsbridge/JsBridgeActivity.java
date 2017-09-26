@@ -1,12 +1,5 @@
 package com.aldoapps.jsbridge.example.jsbridge;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.util.Log;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
-
 import com.aldoapps.jsbridge.BridgeWebView;
 import com.aldoapps.jsbridge.DefaultHandler;
 import com.aldoapps.jsbridge.example.BaseActivity;
@@ -16,6 +9,13 @@ import com.aldoapps.jsbridge.example.jsbridge.pojo.User;
 import com.aldoapps.jsbridge.interfaces.BridgeHandler;
 import com.aldoapps.jsbridge.interfaces.CallBackFunction;
 import com.squareup.moshi.Moshi;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,7 +41,7 @@ public class JsBridgeActivity extends BaseActivity {
 
             @SuppressWarnings("unused")
             public void openFileChooser(ValueCallback<Uri> uploadMsg, String AcceptType,
-                                        String capture) {
+                String capture) {
                 this.openFileChooser(uploadMsg);
             }
 
@@ -75,12 +75,12 @@ public class JsBridgeActivity extends BaseActivity {
         user.setName("John");
 
         webView.callHandler("functionInJs",
-                new Moshi.Builder().build().adapter(User.class).toJson(user), new CallBackFunction() {
-                    @Override
-                    public void onCallBack(String data) {
-                        Log.d("asdf", "hello: " + data);
-                    }
-                });
+            new Moshi.Builder().build().adapter(User.class).toJson(user), new CallBackFunction() {
+                @Override
+                public void onCallBack(String data) {
+                    Log.d("asdf", "hello: " + data);
+                }
+            });
 
         webView.send("hello");
 
@@ -114,7 +114,6 @@ public class JsBridgeActivity extends BaseActivity {
 
             @Override
             public void onCallBack(String data) {
-                // TODO Auto-generated method stub
                 Log.i(TAG, "reponse data from js " + data);
             }
 

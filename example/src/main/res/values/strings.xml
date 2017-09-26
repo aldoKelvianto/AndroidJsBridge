@@ -3,4 +3,8 @@
     <string name="button_name">Java calling Web</string>
     <string name="js_interface">JS Interface</string>
     <string name="js_bridge">JS Bridge</string>
+    <string name="type_your_message">Type your message here</string>
+    <string name="submit_with_loadurl">Submit with Load URL</string>
+    <string name="submit_with_evaljs">Submit with Evaluate JS</string>
+    <string name="android_to_js">Android to JS</string>
 </resources>

@@ -2,6 +2,7 @@ package com.aldoapps.jsbridge.example;
 
 import android.content.Intent;
 
+import com.aldoapps.jsbridge.example.androidtojs.AndroidToJsActivity;
 import com.aldoapps.jsbridge.example.jsbridge.JsBridgeActivity;
 import com.aldoapps.jsbridge.example.jsinterface.JsInterfaceActivity;
 
@@ -21,6 +22,11 @@ public class NavigationActivity extends BaseActivity {
     @OnClick(R.id.btn_js_bridge)
     void onJsBridgeClick() {
         start(JsBridgeActivity.class);
+    }
+
+    @OnClick(R.id.btn_android_to_js)
+    void onAndroidToJsClick() {
+        start(AndroidToJsActivity.class);
     }
 
     private void start(Class activity) {

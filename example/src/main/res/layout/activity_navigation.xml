@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/btn_js_interface"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/js_interface"
-    />
+        android:text="@string/js_interface" />
 
     <Button
         android:id="@+id/btn_js_bridge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/js_bridge"
-    />
+        android:text="@string/js_bridge" />
+
+    <Button
+        android:id="@+id/btn_android_to_js"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/android_to_js" />
 
 </LinearLayout>
