@@ -18,7 +18,7 @@ import butterknife.OnClick;
  * Created by aldo on 9/27/17.
  */
 
-public class TwoWayActivity extends BaseActivity implements TwoWayInterface {
+public class TwoWayActivity extends BaseActivity {
 
     @BindView(R.id.webView)
     WebView webView;
@@ -50,7 +50,6 @@ public class TwoWayActivity extends BaseActivity implements TwoWayInterface {
         webView.loadUrl("javascript:calculateNumber(\"" + number + "\")");
     }
 
-    @Override
     @JavascriptInterface
     public void onCalculationFinished(String result) {
         tvResult.setText(result);
