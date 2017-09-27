@@ -9,6 +9,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Looper;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.webkit.WebView;
@@ -23,11 +24,11 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
 
     public static final String toLoadJs = "WebViewJavascriptBridge.js";
 
-    Map<String, CallBackFunction> responseCallbacks = new HashMap<>();
+    private Map<String, CallBackFunction> responseCallbacks = new HashMap<>();
 
-    Map<String, BridgeHandler> messageHandlers = new HashMap<>();
+    private Map<String, BridgeHandler> messageHandlers = new HashMap<>();
 
-    BridgeHandler defaultHandler = new DefaultHandler();
+    private BridgeHandler defaultHandler = new DefaultHandler();
 
     private List<Message> startupMessage = new ArrayList<>();
 
@@ -206,10 +207,8 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
     /**
      * register handler,so that javascript can call it
      */
-    public void registerHandler(String handlerName, BridgeHandler handler) {
-        if (handler != null) {
-            messageHandlers.put(handlerName, handler);
-        }
+    public void registerHandler(String handlerName, @NonNull BridgeHandler handler) {
+        messageHandlers.put(handlerName, handler);
     }
 
     /**

@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebViewClient;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,21 +40,21 @@ public class JsBridgeActivity extends BaseActivity {
 
         webView.setWebChromeClient(new WebChromeClient() {
 
-//            @SuppressWarnings("unused")
-//            public void openFileChooser(ValueCallback<Uri> uploadMsg, String AcceptType,
-//                String capture) {
-//                this.openFileChooser(uploadMsg);
-//            }
-//
-//            @SuppressWarnings("unused")
-//            public void openFileChooser(ValueCallback<Uri> uploadMsg, String AcceptType) {
-//                this.openFileChooser(uploadMsg);
-//            }
-//
-//            public void openFileChooser(ValueCallback<Uri> uploadMsg) {
-//                uploadMessage = uploadMsg;
-//                pickFile();
-//            }
+            @SuppressWarnings("unused")
+            public void openFileChooser(ValueCallback<Uri> uploadMsg, String AcceptType,
+                String capture) {
+                this.openFileChooser(uploadMsg);
+            }
+
+            @SuppressWarnings("unused")
+            public void openFileChooser(ValueCallback<Uri> uploadMsg, String AcceptType) {
+                this.openFileChooser(uploadMsg);
+            }
+
+            public void openFileChooser(ValueCallback<Uri> uploadMsg) {
+                uploadMessage = uploadMsg;
+                pickFile();
+            }
         });
 
         webView.loadUrl("file:///android_asset/demo-js-bridge.html");
@@ -63,16 +64,12 @@ public class JsBridgeActivity extends BaseActivity {
             @Override
             public void handler(String data, CallBackFunction function) {
                 Log.i(TAG, "handler = submitFromWeb, data from web = " + data);
-                function.onCallBack("submitFromWeb exe, response data 中文 from Java");
+                function.onCallBack("submitFromWeb exe, response data 中文 from Java: " + data);
             }
 
         });
 
-        User user = new User();
-        Location location = new Location();
-        location.setAddress("SDU");
-        user.setLocation(location);
-        user.setName("John");
+        User user = createUser();
 
         webView.callHandler("functionInJs",
             new Moshi.Builder().build().adapter(User.class).toJson(user), new CallBackFunction() {
@@ -83,7 +80,15 @@ public class JsBridgeActivity extends BaseActivity {
             });
 
         webView.send("hello");
+    }
 
+    private User createUser() {
+        User user = new User();
+        Location location = new Location();
+        location.setAddress("SDU");
+        user.setLocation(location);
+        user.setName("John");
+        return user;
     }
 
     @Override
