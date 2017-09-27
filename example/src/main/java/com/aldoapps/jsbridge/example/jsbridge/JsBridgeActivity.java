@@ -39,21 +39,21 @@ public class JsBridgeActivity extends BaseActivity {
 
         webView.setWebChromeClient(new WebChromeClient() {
 
-            @SuppressWarnings("unused")
-            public void openFileChooser(ValueCallback<Uri> uploadMsg, String AcceptType,
-                String capture) {
-                this.openFileChooser(uploadMsg);
-            }
-
-            @SuppressWarnings("unused")
-            public void openFileChooser(ValueCallback<Uri> uploadMsg, String AcceptType) {
-                this.openFileChooser(uploadMsg);
-            }
-
-            public void openFileChooser(ValueCallback<Uri> uploadMsg) {
-                uploadMessage = uploadMsg;
-                pickFile();
-            }
+//            @SuppressWarnings("unused")
+//            public void openFileChooser(ValueCallback<Uri> uploadMsg, String AcceptType,
+//                String capture) {
+//                this.openFileChooser(uploadMsg);
+//            }
+//
+//            @SuppressWarnings("unused")
+//            public void openFileChooser(ValueCallback<Uri> uploadMsg, String AcceptType) {
+//                this.openFileChooser(uploadMsg);
+//            }
+//
+//            public void openFileChooser(ValueCallback<Uri> uploadMsg) {
+//                uploadMessage = uploadMsg;
+//                pickFile();
+//            }
         });
 
         webView.loadUrl("file:///android_asset/demo-js-bridge.html");

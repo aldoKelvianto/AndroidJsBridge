@@ -86,7 +86,7 @@ public class BridgeUtil {
         try {
             in = c.getAssets().open(urlStr);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
-            String line = null;
+            String line;
             StringBuilder sb = new StringBuilder();
             do {
                 line = bufferedReader.readLine();

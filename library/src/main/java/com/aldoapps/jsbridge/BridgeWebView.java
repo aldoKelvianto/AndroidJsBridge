@@ -23,8 +23,6 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
 
     public static final String toLoadJs = "WebViewJavascriptBridge.js";
 
-    private final String TAG = "BridgeWebView";
-
     Map<String, CallBackFunction> responseCallbacks = new HashMap<>();
 
     Map<String, BridgeHandler> messageHandlers = new HashMap<>();
