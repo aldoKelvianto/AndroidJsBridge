@@ -1,0 +1,25 @@
+<html>
+<head>
+    <script async>
+
+    var maxNumber = 101
+
+    function calculateNumber(number) {
+        var randomNumber = Math.floor(Math.random() * maxNumber);
+        var result = number * randomNumber;
+        document.getElementById("numberResult").innerHTML = result;
+        TwoWayInterface.onCalculationFinished(result);
+        return result;
+    }
+
+    </script>
+    <title></title>
+</head>
+<body>
+
+<h1>Number Result:</h1>
+
+<p id="numberResult">Calculation Result Will Goes Here</p>
+
+</body>
+</html>

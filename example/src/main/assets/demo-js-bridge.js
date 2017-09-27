@@ -23,7 +23,7 @@ function callAndroidMethodWithParams() {
     //call native method
     window.WebViewJavascriptBridge.callHandler(
         'submitFromWeb'
-        , {'param': '中文测试'}
+        , {'param': 'secretParam'}
         , function(responseData) {
             document.getElementById("show").innerHTML = "send get responseData from java, data = " + responseData
         }
@@ -52,7 +52,7 @@ connectWebViewJavascriptBridge(function(bridge) {
     bridge.init(function(message, responseCallback) {
         console.log('JS got a message', message);
         var data = {
-            'Javascript Responds': '测试中文!'
+            'Javascript Responds': message
         };
         console.log('JS responding with', data);
         responseCallback(data);

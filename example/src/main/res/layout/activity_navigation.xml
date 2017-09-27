@@ -22,4 +22,10 @@
         android:layout_height="wrap_content"
         android:text="@string/android_to_js" />
 
+    <Button
+        android:id="@+id/btn_two_way"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/two_way_communication" />
+
 </LinearLayout>

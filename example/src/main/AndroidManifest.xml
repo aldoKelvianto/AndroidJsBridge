@@ -20,6 +20,7 @@
         <activity android:name=".jsinterface.JsInterfaceActivity" />
         <activity android:name=".jsbridge.JsBridgeActivity" />
         <activity android:name=".androidtojs.AndroidToJsActivity" />
+        <activity android:name=".twowayprekitkat.TwoWayActivity" />
     </application>
 
 </manifest>

@@ -7,4 +7,7 @@
     <string name="submit_with_loadurl">Submit with Load URL</string>
     <string name="submit_with_evaljs">Submit with Evaluate JS</string>
     <string name="android_to_js">Android to JS</string>
+    <string name="number_hint">Type a number</string>
+    <string name="calculate">Calculate</string>
+    <string name="two_way_communication">Two Way Communication Pre Kitkat</string>
 </resources>

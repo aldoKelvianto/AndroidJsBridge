@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.aldoapps.jsbridge.example.androidtojs.AndroidToJsActivity;
 import com.aldoapps.jsbridge.example.jsbridge.JsBridgeActivity;
 import com.aldoapps.jsbridge.example.jsinterface.JsInterfaceActivity;
+import com.aldoapps.jsbridge.example.twowayprekitkat.TwoWayActivity;
 
 import butterknife.OnClick;
 
@@ -27,6 +28,11 @@ public class NavigationActivity extends BaseActivity {
     @OnClick(R.id.btn_android_to_js)
     void onAndroidToJsClick() {
         start(AndroidToJsActivity.class);
+    }
+
+    @OnClick(R.id.btn_two_way)
+    void onTwoWayClick() {
+        start(TwoWayActivity.class);
     }
 
     private void start(Class activity) {

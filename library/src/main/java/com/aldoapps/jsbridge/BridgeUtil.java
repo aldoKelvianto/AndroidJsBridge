@@ -4,7 +4,6 @@ import android.content.Context;
 import android.webkit.WebView;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -15,7 +14,7 @@ public class BridgeUtil {
     final static String YY_OVERRIDE_SCHEMA = "yy://";
     // yy://return/{function}/returncontent
 
-    final static String YY_RETURN_DATA = YY_OVERRIDE_SCHEMA + "return/";//格式为
+    final static String YY_RETURN_DATA = YY_OVERRIDE_SCHEMA + "return/"; // Format
 
     final static String YY_FETCH_QUEUE = YY_RETURN_DATA + "_fetchQueue/";
 
@@ -28,15 +27,14 @@ public class BridgeUtil {
     final static String CALLBACK_ID_FORMAT = "JAVA_CB_%s";
 
     final static String JS_HANDLE_MESSAGE_FROM_JAVA = "javascript:WebViewJavascriptBridge" +
-		"._handleMessageFromNative('%s');";
+            "._handleMessageFromNative('%s');";
 
     final static String JS_FETCH_QUEUE_FROM_JAVA = "javascript:WebViewJavascriptBridge" +
-		"._fetchQueue();";
+            "._fetchQueue();";
 
     public static String parseFunctionName(String jsUrl) {
         return jsUrl.replace("javascript:WebViewJavascriptBridge.", "").replaceAll("\\(.*\\);", "");
     }
-
 
     public static String getDataFromReturnUrl(String url) {
         if (url.startsWith(YY_FETCH_QUEUE)) {
@@ -65,9 +63,8 @@ public class BridgeUtil {
         return null;
     }
 
-
     /**
-     * js 文件将注入为第一个script引用
+     * The js file will be injected as the first script reference
      */
     public static void webViewLoadJs(WebView view, String url) {
         String js = "var newscript = document.createElement(\"script\");";
@@ -77,37 +74,22 @@ public class BridgeUtil {
     }
 
     public static void webViewLoadLocalJs(WebView view, String path) {
-        String jsContent = assetFile2Str(view.getContext(), path);
+        String jsContent = convertAssetsToString(view.getContext(), path);
         view.loadUrl("javascript:" + jsContent);
     }
 
-    public static String assetFile2Str(Context c, String urlStr) {
-        InputStream in = null;
-        try {
-            in = c.getAssets().open(urlStr);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
-            String line;
-            StringBuilder sb = new StringBuilder();
-            do {
-                line = bufferedReader.readLine();
-                if (line != null && !line.matches("^\\s*\\/\\/.*")) {
-                    sb.append(line);
-                }
-            } while (line != null);
+    public static String convertAssetsToString(Context context, String urlStr) {
+        try (InputStream in = context.getAssets().open(urlStr);
+             BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
 
-            bufferedReader.close();
-            in.close();
+            StringBuilder sb = new StringBuilder();
+            for (String line = reader.readLine(); line != null; line = reader.readLine()) {
+                if (!line.matches("^\\s*//.*")) sb.append(line);
+            }
 
             return sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                }
-            }
         }
         return null;
     }

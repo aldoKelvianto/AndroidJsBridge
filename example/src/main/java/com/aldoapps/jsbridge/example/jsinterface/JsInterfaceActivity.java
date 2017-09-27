@@ -16,7 +16,7 @@ import butterknife.BindView;
  * Created by aldo on 9/26/17.
  */
 
-public class JsInterfaceActivity extends BaseActivity {
+public class JsInterfaceActivity extends BaseActivity implements CallbackInterface {
 
     @BindView(R.id.webView)
     WebView webView;
@@ -28,23 +28,23 @@ public class JsInterfaceActivity extends BaseActivity {
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("file:///android_asset/demo-js-interface.html");
-        webView.addJavascriptInterface(new CallbackInterface() {
-            @Override
-            @JavascriptInterface
-            public void receiveMessageFromJs(String message) {
-                Toast.makeText(JsInterfaceActivity.this, "r: " + message, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            @JavascriptInterface
-            public void showAndroidToast(String toastMessage) {
-                Toast.makeText(JsInterfaceActivity.this, "s: " + toastMessage, Toast.LENGTH_SHORT).show();
-            }
-        }, "MyJsInterface");
+        webView.addJavascriptInterface(this, "MyJsInterface");
     }
 
     @Override
     protected int getLayout() {
         return R.layout.activity_js_interface;
+    }
+
+    @Override
+    @JavascriptInterface
+    public void receiveMessageFromJs(String message) {
+        Toast.makeText(JsInterfaceActivity.this, "r: " + message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    @JavascriptInterface
+    public void showAndroidToast(String toastMessage) {
+        Toast.makeText(JsInterfaceActivity.this, "s: " + toastMessage, Toast.LENGTH_SHORT).show();
     }
 }

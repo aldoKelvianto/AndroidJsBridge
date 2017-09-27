@@ -69,10 +69,7 @@ public class JsBridgeActivity extends BaseActivity {
 
         });
 
-        User user = createUser();
-
-        webView.callHandler("functionInJs",
-            new Moshi.Builder().build().adapter(User.class).toJson(user), new CallBackFunction() {
+        webView.callHandler("functionInJs", getUserInJson(), new CallBackFunction() {
                 @Override
                 public void onCallBack(String data) {
                     Log.d("asdf", "hello: " + data);
@@ -80,6 +77,10 @@ public class JsBridgeActivity extends BaseActivity {
             });
 
         webView.send("hello");
+    }
+
+    private String getUserInJson() {
+        return new Moshi.Builder().build().adapter(User.class).toJson(createUser());
     }
 
     private User createUser() {
