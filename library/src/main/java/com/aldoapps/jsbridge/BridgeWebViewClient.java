@@ -30,25 +30,22 @@ public class BridgeWebViewClient extends WebViewClient {
 
         if (url.startsWith(BridgeUtil.YY_RETURN_DATA)) {
             webView.handlerReturnData(url);
-            return true;
         } else if (url.startsWith(BridgeUtil.YY_OVERRIDE_SCHEMA)) { //
             webView.flushMessageQueue();
-            return true;
         } else {
             return false;
         }
+        return true;
     }
 
     @Override
     public void onPageFinished(WebView view, String url) {
         BridgeUtil.webViewLoadLocalJs(view, BridgeWebView.toLoadJs);
 
-        if (webView.getStartupMessage() != null) {
-            for (Message m : webView.getStartupMessage()) {
-                webView.dispatchMessage(m);
-            }
-            webView.setStartupMessage(null);
+        for (Message message : webView.getStartupMessage()) {
+            webView.dispatchMessage(message);
         }
+        webView.clearStartupMessage();
     }
 
 }

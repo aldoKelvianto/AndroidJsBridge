@@ -4,6 +4,11 @@
     <title>
         JS Call Java
     </title>
+    <style>
+        input {
+            margin: 8px
+        }
+    </style>
 </head>
 
 <body>
@@ -17,31 +22,31 @@
         </xmp>
     </p>
 
-    <p>
+    <div>
         <input type="text" id="usernameText" value="username"/>
-    </p>
+    </div>
 
-    <p>
+    <div>
         <input type="text" id="passwordText" value="password"/>
-    </p>
+    </div>
 
-    <p>
+    <div>
         <input type="button" id="button1" value="Call Android Method" onclick="callAndroidMethod()"
         />
-    </p>
+    </div>
 
-    <p>
+    <div>
         <input type="button" id="button2" value="Call Android Method with Params" onclick="callAndroidMethodWithParams()"
         />
-    </p>
+    </div>
 
-    <p>
+    <div>
         <input type="button" id="button3" value="Show HTML" onclick="showHtml()"/>
-    </p>
+    </div>
 
-    <p>
+    <div>
         <input name="chosenFile" type="file" />
-    </p>
+    </div>
 </body>
 
 <script src="demo-js-bridge.js">
