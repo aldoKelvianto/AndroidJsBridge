@@ -1,4 +1,4 @@
-//notation: js file can only use this kind of comments
+//note: js file can only use this kind of comments
 //since comments will cause error when use in webview.loadurl,
 //comments will be remove by java use regexp
 (function() {
@@ -53,7 +53,7 @@
         }, responseCallback);
     }
 
-    //sendMessage add message, 触发native处理 sendMessage
+    // sendMessage add message, Trigger Native Processing sendMessage
     function _doSend(message, responseCallback) {
         if (responseCallback) {
             var callbackId = 'cb_' + (uniqueId++) + '_' + new Date().getTime();
@@ -65,7 +65,8 @@
         messagingIframe.src = CUSTOM_PROTOCOL_SCHEME + '://' + QUEUE_HAS_MESSAGE;
     }
 
-    // 提供给native调用,该函数作用:获取sendMessageQueue返回给native,由于android不能直接获取返回的内容,所以使用url shouldOverrideUrlLoading 的方式返回内容
+    // Provided to the native call, the function of the role: Get sendMessageQueue return to native,
+    // android can not directly get the return of the content, so use url shouldOverrideUrlLoading way to return the content
     function _fetchQueue() {
         var messageQueueString = JSON.stringify(sendMessageQueue);
         sendMessageQueue = [];
@@ -73,7 +74,7 @@
         messagingIframe.src = CUSTOM_PROTOCOL_SCHEME + '://return/_fetchQueue/' + encodeURIComponent(messageQueueString);
     }
 
-    //提供给native使用,
+    // Available to Native
     function _dispatchMessageFromNative(messageJSON) {
         setTimeout(function() {
             var message = JSON.parse(messageJSON);
@@ -87,7 +88,7 @@
                 responseCallback(message.responseData);
                 delete responseCallbacks[message.responseId];
             } else {
-                //直接发送
+                // Send directly
                 if (message.callbackId) {
                     var callbackResponseId = message.callbackId;
                     responseCallback = function(responseData) {
@@ -102,7 +103,7 @@
                 if (message.handlerName) {
                     handler = messageHandlers[message.handlerName];
                 }
-                //查找指定handler
+                // Find specific handler
                 try {
                     handler(message.data, responseCallback);
                 } catch (exception) {
@@ -114,7 +115,7 @@
         });
     }
 
-    //提供给native调用,receiveMessageQueue 在会在页面加载完后赋值为null,所以
+    // Provided to the native call, receiveMessageQueue will be assigned null after the page is loaded
     function _handleMessageFromNative(messageJSON) {
         console.log(messageJSON);
         if (receiveMessageQueue && receiveMessageQueue.length > 0) {

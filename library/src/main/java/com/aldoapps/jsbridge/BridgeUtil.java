@@ -3,7 +3,10 @@ package com.aldoapps.jsbridge;
 import android.content.Context;
 import android.webkit.WebView;
 
+import com.aldoapps.jsbridge.util.IOUtil;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -79,18 +82,22 @@ public class BridgeUtil {
     }
 
     public static String convertAssetsToString(Context context, String urlStr) {
-        try (InputStream in = context.getAssets().open(urlStr);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
+        InputStream stream = null;
+        BufferedReader reader = null;
+        StringBuilder builder = new StringBuilder();
 
-            StringBuilder sb = new StringBuilder();
+        try {
+            stream = context.getAssets().open(urlStr);
+            reader = new BufferedReader(new InputStreamReader(stream));
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-                if (!line.matches("^\\s*//.*")) sb.append(line);
+                if (!line.matches("^\\s*//.*")) builder.append(line);
             }
-
-            return sb.toString();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            IOUtil.closeQuietly(stream, reader);
         }
-        return null;
+
+        return builder.toString();
     }
 }

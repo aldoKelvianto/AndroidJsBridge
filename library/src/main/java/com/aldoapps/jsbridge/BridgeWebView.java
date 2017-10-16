@@ -2,6 +2,7 @@ package com.aldoapps.jsbridge;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -96,12 +97,12 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
         return startupMessage;
     }
 
-    public void clearStartupMessage() {
-        startupMessage.clear();
-    }
-
     public void setStartupMessage(List<Message> startupMessage) {
         this.startupMessage = startupMessage;
+    }
+
+    public void clearStartupMessage() {
+        startupMessage.clear();
     }
 
     /**
@@ -117,7 +118,9 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
         setVerticalScrollBarEnabled(false);
         setHorizontalScrollBarEnabled(false);
         getSettings().setJavaScriptEnabled(true);
-        WebView.setWebContentsDebuggingEnabled(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WebView.setWebContentsDebuggingEnabled(true);
+        }
         setWebViewClient(new BridgeWebViewClient(this));
     }
 
