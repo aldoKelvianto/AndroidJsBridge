@@ -32,6 +32,7 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
     private List<Message> startupMessage = new ArrayList<>();
 
     private long uniqueId = 0;
+
     private CallBackFunction jsFetchQueueFromJavaCallback = new CallBackFunction() {
         @Override
         public void onCallBack(String data) {
@@ -48,27 +49,24 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
                     function.onCallBack(responseData);
                     responseCallbacks.remove(responseId);
                 } else {
-                    CallBackFunction responseFunction;
-                    // if had callbackId
                     final String callbackId = message.getCallbackId();
-                    if (!TextUtils.isEmpty(callbackId)) {
-                        responseFunction = new CallBackFunction() {
-                            @Override
-                            public void onCallBack(String data) {
-                                Message responseMsg = new Message();
-                                responseMsg.setResponseId(callbackId);
-                                responseMsg.setResponseData(data);
-                                queueMessage(responseMsg);
-                            }
-                        };
-                    } else {
-                        responseFunction = new CallBackFunction() {
-                            @Override
-                            public void onCallBack(String data) {
-                                // do nothing
-                            }
-                        };
-                    }
+
+                    CallBackFunction responseFunction = !TextUtils.isEmpty(callbackId) ? new CallBackFunction() {
+                        @Override
+                        public void onCallBack(String data) {
+                            Message responseMsg = new Message();
+                            responseMsg.setResponseId(callbackId);
+                            responseMsg.setResponseData(data);
+                            queueMessage(responseMsg);
+                        }
+                    } : new CallBackFunction() {
+                        @Override
+                        public void onCallBack(String data) {
+
+                        }
+                    };
+
+
                     BridgeHandler handler = !TextUtils.isEmpty(message.getHandlerName()) ?
                             messageHandlers.get(message.getHandlerName()) : defaultHandler;
 
@@ -184,7 +182,7 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
     }
 
     public void loadUrl(String jsUrl, CallBackFunction returnCallback) {
-        this.loadUrl(jsUrl);
+        loadUrl(jsUrl);
         responseCallbacks.put(BridgeUtil.parseFunctionName(jsUrl), returnCallback);
     }
 

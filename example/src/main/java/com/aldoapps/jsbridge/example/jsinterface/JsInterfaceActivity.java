@@ -21,7 +21,7 @@ public class JsInterfaceActivity extends BaseActivity implements CallbackInterfa
     @BindView(R.id.webView)
     WebView webView;
 
-    @SuppressLint("SetJavaScriptEnabled")
+    @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
