@@ -81,7 +81,7 @@ public class BridgeUtil {
         view.loadUrl("javascript:" + jsContent);
     }
 
-    public static String convertAssetsToString(Context context, String urlStr) {
+    private static String convertAssetsToString(Context context, String urlStr) {
         InputStream stream = null;
         BufferedReader reader = null;
         StringBuilder builder = new StringBuilder();
